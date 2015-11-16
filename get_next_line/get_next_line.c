@@ -20,7 +20,7 @@ int		get_next_line(int const fd, char **line)
 
 	line = 0;
 	nbytes = sizeof(buffer);
-	
-	bytes_read = read(fd, buffer, nbytes);
-	
+
+	bytes_read = read(fd, uffer, nbytes);
+
 }

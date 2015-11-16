@@ -15,4 +15,11 @@
 
 # define BUFF_SIZE 32
 
+typedef struct	s_save
+{
+	char		*buffer;
+	int			current_pos;
+	int			current_line;
+}				t_save;
+
 #endif
