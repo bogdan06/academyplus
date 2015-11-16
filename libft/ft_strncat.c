@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
 char	*ft_strncat(char *s1, const char *s2, size_t n)
@@ -18,14 +17,14 @@ char	*ft_strncat(char *s1, const char *s2, size_t n)
 	size_t i;
 	size_t j;
 
-	i = ft_strlen(s1) + 1;
+	i = ft_strlen(s1);
 	j = 0;
-	while (j < n)
+	while (n > 0)
 	{
-		s1[i] = s2[j];
-		i++;
+		s1[i + j] = s2[j];
 		j++;
+		n--;
 	}
-	s1[j] = '\0';
+	s1[j + i] = '\0';
 	return (s1);
 }

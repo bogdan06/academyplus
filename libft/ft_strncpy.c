@@ -11,32 +11,20 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 char	*ft_strncpy(char *dst, const char *src, size_t n)
 {
 	size_t i;
-	size_t j;
 
-	i = 0;
-	j = ft_strlen(src);
-	if (j < n)
+	if (dst && src)
 	{
-		while (i < j)
+		ft_memset(dst, '\0', n);
+		i = 0;
+		while (n-- > 0 && src[i])
 		{
 			dst[i] = src[i];
 			i++;
-		}
-		while (dst[i] != '\0')
-		{
-			dst[i] = '\0';
 		}
 	}
-	else
-		while (i < n)
-		{
-			dst[i] = src[i];
-			i++;
-		}
 	return (dst);
 }

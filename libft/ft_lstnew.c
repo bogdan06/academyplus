@@ -1,39 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsub.h                                        :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bolariu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/10/31 12:23:17 by bolariu           #+#    #+#             */
-/*   Updated: 2015/11/15 01:59:30 by bolariu          ###   ########.fr       */
+/*   Created: 2015/10/23 23:21:29 by bolariu           #+#    #+#             */
+/*   Updated: 2015/11/15 15:37:01 by bolariu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strsub(char const *s, unsigned int start, size_t len)
+t_list	*ft_lstnew(void const *content, size_t content_size)
 {
-	unsigned int	i;
-	char			*str;
-	size_t			slen;
+	t_list	*list;
 
-	if (s == NULL)
+	list = (t_list*)malloc(sizeof(t_list));
+	if (list == NULL)
 		return (NULL);
-	str = (char*)malloc((len + 1) * sizeof(char));
-	slen = ft_strlen(s);
-	i = 0;
-	if ((start <= slen) && (len <= (slen - start)))
+	if (content == NULL)
 	{
-		while (len > 0)
-		{
-			str[i] = s[start + i];
-			i++;
-			len--;
-		}
-		str[i] = '\0';
+		list->content = NULL;
+		list->content_size = 0;
 	}
 	else
-		return (NULL);
-	return (str);
+	{
+		list->content = malloc(content_size);
+		if (list->content == NULL)
+			return (NULL);
+		ft_memcpy(list->content, content, content_size);
+		list->content_size = content_size;
+	}
+	list->next = NULL;
+	return (list);
 }

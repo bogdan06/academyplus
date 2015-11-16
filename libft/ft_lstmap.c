@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bolariu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/10/25 13:45:01 by bolariu           #+#    #+#             */
-/*   Updated: 2015/11/15 02:10:16 by bolariu          ###   ########.fr       */
+/*   Created: 2015/10/23 23:21:29 by bolariu           #+#    #+#             */
+/*   Updated: 2015/11/15 15:48:36 by bolariu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	size_t	i;
-	size_t	s1_end;
+	t_list	*ret;
+	t_list	*ret_last;
 
-	i = 0;
-	while (dst[i] && i < size)
-		i++;
-	s1_end = i;
-	while (src[i - s1_end] && i < size - 1)
+	ret = f(lst);
+	ret_last = ret;
+	if (ret == NULL)
+		return (NULL);
+	while (lst->next)
 	{
-		dst[i] = src[i - s1_end];
-		i++;
+		lst = lst->next;
+		ret_last->next = f(lst);
+		if (ret_last->next == NULL)
+			return (NULL);
+		ret_last = ret_last->next;
 	}
-	if (s1_end < size)
-		dst[i] = '\0';
-	return (s1_end + ft_strlen(src));
+	return (ret);
 }

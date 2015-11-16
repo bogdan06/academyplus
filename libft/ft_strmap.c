@@ -6,11 +6,10 @@
 /*   By: bolariu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/22 15:08:31 by bolariu           #+#    #+#             */
-/*   Updated: 2015/10/22 15:30:14 by bolariu          ###   ########.fr       */
+/*   Updated: 2015/11/15 14:53:37 by bolariu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
 char	*ft_strmap(char const *s, char (*f)(char))

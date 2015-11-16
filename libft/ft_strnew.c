@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <string.h>
-#include <stdlib.h>
 
 char	*ft_strnew(size_t size)
 {
@@ -20,10 +18,11 @@ char	*ft_strnew(size_t size)
 	char	*str;
 
 	i = 0;
-	str = malloc((size + 1) * sizeof(char));
-	while (i <= size + 1)
+	if (!(str = (char *)malloc(size * sizeof(char))))
+		return (NULL);
+	while (i < size)
 	{
-		str[size] = '\0';
+		str[i] = '\0';
 		i++;
 	}
 	return (str);

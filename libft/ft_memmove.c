@@ -6,12 +6,11 @@
 /*   By: bolariu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/22 15:08:31 by bolariu           #+#    #+#             */
-/*   Updated: 2015/10/22 15:30:14 by bolariu          ###   ########.fr       */
+/*   Updated: 2015/11/15 00:37:26 by bolariu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdlib.h>
+#include "libft.h"
 
 void	*ft_memmove(void *dst, void const *src, size_t n)
 {
@@ -23,7 +22,7 @@ void	*ft_memmove(void *dst, void const *src, size_t n)
 	i = 0;
 	tmp_d = dst;
 	tmp = src;
-	tmp_s = malloc(sizeof(char) * n);
+	tmp_s = (char*)malloc(sizeof(char) * n);
 	while (i < n)
 	{
 		tmp_s[i] = tmp[i];
@@ -36,5 +35,5 @@ void	*ft_memmove(void *dst, void const *src, size_t n)
 		i++;
 	}
 	free(tmp_s);
-	return (dst);
+	return ((void*)dst);
 }

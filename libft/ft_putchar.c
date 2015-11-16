@@ -6,13 +6,13 @@
 /*   By: bolariu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/31 12:47:20 by bolariu           #+#    #+#             */
-/*   Updated: 2015/11/03 15:35:40 by bolariu          ###   ########.fr       */
+/*   Updated: 2015/11/15 15:34:02 by bolariu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
-void ft_putchar(char c)
+void	ft_putchar(char c)
 {
 	write(1, &c, 1);
 }

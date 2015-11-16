@@ -6,7 +6,7 @@
 /*   By: bolariu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/24 02:17:38 by bolariu           #+#    #+#             */
-/*   Updated: 2015/10/24 02:17:49 by bolariu          ###   ########.fr       */
+/*   Updated: 2015/11/15 01:50:30 by bolariu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n)
 	{
 		j = i;
 		c = 0;
-		while (s1[j] == s2[c] && j < n)
+		while ((s1[j] == s2[c]) && (j < n))
 		{
 			j++;
 			c++;
