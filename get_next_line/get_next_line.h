@@ -17,9 +17,10 @@
 
 typedef struct	s_save
 {
-	char		*buffer;
-	int			current_pos;
 	int			current_line;
+	char		**lines;
+	int			state;
+	char		*file_content;
 }				t_save;
 
 #endif

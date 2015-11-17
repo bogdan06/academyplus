@@ -14,13 +14,23 @@
 
 int		get_next_line(int const fd, char **line)
 {
-	static int	current_line;
-	size_t		nbytes;
-	static char	buffer[BUFF_SIZE];
+	static s_save	save;
+	char			*buffer;
 
-	line = 0;
-	nbytes = sizeof(buffer);
-
-	bytes_read = read(fd, uffer, nbytes);
-
+	if(save->state == 0)
+	{
+		save->state = 1;
+		save->current_line == 0;
+		while (read(fd, buffer, BUFF_SIZE))
+		{
+			buffer = (char*)malloc(sizeof(char) * BUFF_SIZE);
+			while (buffer[i] != EOF)
+			{
+				save->file_content = buffer[i];
+				i++;
+			}
+			free(buffer);
+		}
+		
+	}
 }
