@@ -20,10 +20,10 @@ static int	ft_read_file(int const fd, char **file_lines)
 	char			*buf;
 	size_t			num_read_chars;
 
-	buf = malloc(sizeof(char)*BUFF_SIZE);
+	buf = ft_memalloc(sizeof(char)*BUFF_SIZE);
 	temp_string = ft_memalloc(1);
 	file_cont = ft_memalloc(1);
-	while ((num_read_chars = read(fd, buf, BUFF_SIZE)) && (num_read_chars != 0))
+	while ((num_read_chars = read(fd, buf, BUFF_SIZE)) && (num_read_chars > 0))
 	{
 		free(temp_string);
 		temp_string = ft_memalloc(sizeof(char) * (ft_strlen(file_cont) + num_read_chars + 1));
