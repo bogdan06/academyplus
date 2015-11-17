@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bolariu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/10/22 14:30:16 by bolariu           #+#    #+#             */
-/*   Updated: 2015/11/17 20:52:02 by bolariu          ###   ########.fr       */
+/*   Created: 2015/10/22 15:08:31 by bolariu           #+#    #+#             */
+/*   Updated: 2015/10/22 15:30:14 by bolariu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-size_t	ft_strlen(const char *str)
+int		ft_atoi(char const *str)
 {
-	size_t i;
+	int	i;
+	int	j;
+	int	num;
 
 	i = 0;
-	while ((str[i] != '\0') && (str != NULL))
+	num = 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
+			|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
 		i++;
-	return (i);
+	j = i;
+	while (str[i] != '\0')
+	{
+		if (str[i] >= '0' && str[i] <= '9')
+			num = (num * 10) + str[i] - '0';
+		else if (!((str[i] == '+' || str[i] == '-') && i == j))
+			break ;
+		i++;
+	}
+	if (str[j] == '-')
+		num *= -1;
+	return (num);
 }

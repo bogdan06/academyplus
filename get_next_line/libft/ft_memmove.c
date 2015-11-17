@@ -1,23 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bolariu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/10/22 14:30:16 by bolariu           #+#    #+#             */
-/*   Updated: 2015/11/17 20:52:02 by bolariu          ###   ########.fr       */
+/*   Created: 2015/10/22 15:08:31 by bolariu           #+#    #+#             */
+/*   Updated: 2015/11/15 00:37:26 by bolariu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *str)
+void	*ft_memmove(void *dst, void const *src, size_t n)
 {
-	size_t i;
+	size_t		i;
+	char		*tmp_d;
+	char		*tmp_s;
+	const char	*tmp;
 
 	i = 0;
-	while ((str[i] != '\0') && (str != NULL))
+	tmp_d = dst;
+	tmp = src;
+	tmp_s = (char*)malloc(sizeof(char) * n);
+	while (i < n)
+	{
+		tmp_s[i] = tmp[i];
 		i++;
-	return (i);
+	}
+	i = 0;
+	while (i < n)
+	{
+		tmp_d[i] = tmp_s[i];
+		i++;
+	}
+	free(tmp_s);
+	return ((void*)dst);
 }

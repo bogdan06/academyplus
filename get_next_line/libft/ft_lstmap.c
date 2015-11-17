@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bolariu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/10/22 14:30:16 by bolariu           #+#    #+#             */
-/*   Updated: 2015/11/17 20:52:02 by bolariu          ###   ########.fr       */
+/*   Created: 2015/10/23 23:21:29 by bolariu           #+#    #+#             */
+/*   Updated: 2015/11/15 15:48:36 by bolariu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *str)
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	size_t i;
+	t_list	*ret;
+	t_list	*ret_last;
 
-	i = 0;
-	while ((str[i] != '\0') && (str != NULL))
-		i++;
-	return (i);
+	ret = f(lst);
+	ret_last = ret;
+	if (ret == NULL)
+		return (NULL);
+	while (lst->next)
+	{
+		lst = lst->next;
+		ret_last->next = f(lst);
+		if (ret_last->next == NULL)
+			return (NULL);
+		ret_last = ret_last->next;
+	}
+	return (ret);
 }

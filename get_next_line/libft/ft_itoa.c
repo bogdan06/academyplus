@@ -1,23 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bolariu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/10/22 14:30:16 by bolariu           #+#    #+#             */
-/*   Updated: 2015/11/17 20:52:02 by bolariu          ###   ########.fr       */
+/*   Created: 2015/10/22 15:08:31 by bolariu           #+#    #+#             */
+/*   Updated: 2015/10/22 15:30:14 by bolariu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *str)
+char	*ft_itoa(int n)
 {
-	size_t i;
+	char	*s;
+	size_t	len;
 
-	i = 0;
-	while ((str[i] != '\0') && (str != NULL))
-		i++;
-	return (i);
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	len = ft_nbrlen(n);
+	if (!(s = (char *)malloc((len + 1) * sizeof(*s))))
+		return (NULL);
+	if (n < 0)
+	{
+		s[0] = '-';
+		n *= -1;
+	}
+	s[len] = '\0';
+	while (n >= 10)
+	{
+		s[len - 1] = n % 10 + '0';
+		n = n / 10;
+		len--;
+	}
+	s[len - 1] = n + '0';
+	return (s);
 }

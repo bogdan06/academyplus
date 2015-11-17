@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   strnequ.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bolariu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/10/22 14:30:16 by bolariu           #+#    #+#             */
-/*   Updated: 2015/11/17 20:52:02 by bolariu          ###   ########.fr       */
+/*   Created: 2015/10/31 12:15:44 by bolariu           #+#    #+#             */
+/*   Updated: 2015/10/31 12:16:12 by bolariu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *str)
+int		ft_strnequ(char const *s1, char const *s2, size_t n)
 {
-	size_t i;
-
-	i = 0;
-	while ((str[i] != '\0') && (str != NULL))
-		i++;
-	return (i);
+	if ((s1 == NULL) && (s2 == NULL))
+		return (0);
+	if ((s1 == NULL) || (s2 == NULL))
+		return (1);
+	if (ft_strncmp(s1, s2, n) == 0)
+		return (1);
+	return (0);
 }

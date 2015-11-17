@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_ft_min.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bolariu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/10/22 14:30:16 by bolariu           #+#    #+#             */
-/*   Updated: 2015/11/17 20:52:02 by bolariu          ###   ########.fr       */
+/*   Created: 2015/10/22 15:08:31 by bolariu           #+#    #+#             */
+/*   Updated: 2015/11/15 15:33:45 by bolariu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-size_t	ft_strlen(const char *str)
+int			ft_min(int x, int y)
 {
-	size_t i;
+	if (x < y)
+		return (x);
+	return (y);
+}
 
-	i = 0;
-	while ((str[i] != '\0') && (str != NULL))
-		i++;
-	return (i);
+float		ft_fmin(float x, float y)
+{
+	if (x < y)
+		return (x);
+	return (y);
+}
+
+double		ft_dmin(double x, double y)
+{
+	if (x < y)
+		return (x);
+	return (y);
 }

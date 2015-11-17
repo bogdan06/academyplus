@@ -11,26 +11,49 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "libft/libft.h"
 
-int		get_next_line(int const fd, char **line)
+static int	ft_read_file(int const fd, char **file_lines)
 {
-	static s_save	save;
-	char			*buffer;
+	char			*temp_string;
+	char			*file_cont;
+	char			*buf;
+	size_t			num_read_chars;
 
-	if(save->state == 0)
+	buf = malloc(sizeof(char)*BUFF_SIZE);
+	temp_string = ft_memalloc(1);
+	file_cont = ft_memalloc(1);
+	while ((num_read_chars = read(fd, buf, BUFF_SIZE)) && (num_read_chars != 0))
 	{
-		save->state = 1;
-		save->current_line == 0;
-		while (read(fd, buffer, BUFF_SIZE))
-		{
-			buffer = (char*)malloc(sizeof(char) * BUFF_SIZE);
-			while (buffer[i] != EOF)
-			{
-				save->file_content = buffer[i];
-				i++;
-			}
-			free(buffer);
-		}
-		
+		free(temp_string);
+		temp_string = ft_memalloc(sizeof(char) * (ft_strlen(file_cont) + num_read_chars + 1));
+		temp_string = ft_strncat(file_cont, buf, num_read_chars);
+		free(file_cont);
+		file_cont = temp_string;
+		free(buf);
+		buf = malloc(sizeof(char)*BUFF_SIZE);
 	}
+	if ((file_lines = ft_strsplit(file_cont, '\n')))
+		return (1);
+	return (0);
+}
+
+int			get_next_line(int const fd, char **line)
+{
+	static struct	s_save save;
+
+	if (!line)
+		return (-1);
+	if (!save.file_lines)
+	{
+		save.current_line = 0;
+		save.file_lines = NULL;
+		if(!ft_read_file(fd, save.file_lines))
+			return (-1);
+	}
+	*line = ft_strcpy(save.file_lines[save.current_line], *line);
+	save.current_line++;
+	if (save.current_line >= save.content_size)
+		return (0);
+	return (1);
 }
