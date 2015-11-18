@@ -17,8 +17,8 @@
 typedef struct	s_save
 {
 	int			current_line;
-	int			content_size;
-	char		**file_lines;
+	int			total_lines;
+	char		**split_lines;
 }				t_save;
 
 int		get_next_line(int const fd, char **line);

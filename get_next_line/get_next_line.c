@@ -13,29 +13,21 @@
 #include "get_next_line.h"
 #include "libft/libft.h"
 
-static int	ft_read_file(int const fd, char **file_lines)
+static void	ft_populate(int const fd, struct s_save save)
 {
-	char			*temp_string;
-	char			*file_cont;
+	int				nbytes;
 	char			*buf;
-	size_t			num_read_chars;
+	char			*str;
 
-	buf = ft_memalloc(sizeof(char)*BUFF_SIZE);
-	temp_string = ft_memalloc(1);
-	file_cont = ft_memalloc(1);
-	while ((num_read_chars = read(fd, buf, BUFF_SIZE)) && (num_read_chars > 0))
+	str = (char*)ft_memalloc(sizeof(char) * BUFF_SIZE);
+	buf = (char*)ft_memalloc(sizeof(char) * (BUFF_SIZE + 1));
+	buf = (char*)ft_memset(buf, '\0', BUFF_SIZE);
+	while ((nbytes = read(fd, buf, BUFF_SIZE)) && (nbytes != -1))
 	{
-		free(temp_string);
-		temp_string = ft_memalloc(sizeof(char) * (ft_strlen(file_cont) + num_read_chars + 1));
-		temp_string = ft_strncat(file_cont, buf, num_read_chars);
-		free(file_cont);
-		file_cont = temp_string;
-		free(buf);
-		buf = malloc(sizeof(char)*BUFF_SIZE);
+		str = ft_strjoin(str, buf);
+		buf = (char*)ft_memset(buf, '\0', BUFF_SIZE + 1);
 	}
-	if ((file_lines = ft_strsplit(file_cont, '\n')))
-		return (1);
-	return (0);
+	save.split_lines = ft_strsplit(str, '\n');
 }
 
 int			get_next_line(int const fd, char **line)
@@ -44,16 +36,16 @@ int			get_next_line(int const fd, char **line)
 
 	if (!line)
 		return (-1);
-	if (!save.file_lines)
+	if (!save.total_lines)
 	{
-		save.current_line = 0;
-		save.file_lines = NULL;
-		if(!ft_read_file(fd, save.file_lines))
-			return (-1);
+		ft_populate(fd, save);
 	}
-	*line = ft_strcpy(save.file_lines[save.current_line], *line);
-	save.current_line++;
-	if (save.current_line >= save.content_size)
-		return (0);
-	return (1);
+	if (!save.split_lines)
+		return (-1);
+	if (save.current_line <= save.total_lines)
+	{
+		*line = save.split_lines[save.current_line];
+		return (1);
+	}
+	return (0);
 }
