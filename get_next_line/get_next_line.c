@@ -11,41 +11,52 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "libft/libft.h"
 
-static void	ft_populate(int const fd, struct s_save save)
+static int		read_to_point(int const fd, char **point)
 {
-	int				nbytes;
-	char			*buf;
-	char			*str;
+	char	*buff;
+	int		ret;
+	char	*temp;
 
-	str = (char*)ft_memalloc(sizeof(char) * BUFF_SIZE);
-	buf = (char*)ft_memalloc(sizeof(char) * (BUFF_SIZE + 1));
-	buf = (char*)ft_memset(buf, '\0', BUFF_SIZE);
-	while ((nbytes = read(fd, buf, BUFF_SIZE)) && (nbytes != -1))
+	if (!(buff = (char *)malloc(sizeof(*buff) * (BUFF_SIZE + 1))))
+		return (-1);
+	ret = read(fd, buff, BUFF_SIZE);
+	if (ret > 0)
 	{
-		str = ft_strjoin(str, buf);
-		buf = (char*)ft_memset(buf, '\0', BUFF_SIZE + 1);
+		buff[ret] = '\0';
+		temp = ft_strjoin(*point, buff);
+		free(*point);
+		*point = temp;
 	}
-	save.split_lines = ft_strsplit(str, '\n');
+	free(buff);
+	return (ret);
 }
 
-int			get_next_line(int const fd, char **line)
+int				get_next_line(int const fd, char **line)
 {
-	static struct	s_save save;
+	static char	*point = NULL;
+	char		*aux;
+	int			ret;
 
-	if (!line)
+	if ((!point && (point = (char *)malloc(sizeof(*point))) == NULL) || !line
+			|| fd < 0 || BUFF_SIZE < 0)
 		return (-1);
-	if (!save.total_lines)
+	aux = ft_strchr(point, '\n');
+	while (aux == NULL)
 	{
-		ft_populate(fd, save);
+		ret = read_to_point(fd, &point);
+		if (ret == 0)
+		{
+			if (ft_strlen(point) == 0)
+				return (0);
+			point = ft_strjoin(point, "\n");
+		}
+		if (ret < 0)
+			return (-1);
+		else
+			aux = ft_strchr(point, '\n');
 	}
-	if (!save.split_lines)
-		return (-1);
-	if (save.current_line <= save.total_lines)
-	{
-		*line = save.split_lines[save.current_line];
-		return (1);
-	}
-	return (0);
+	*line = ft_strsub(point, 0, ft_strlen(point) - ft_strlen(aux));
+	point = ft_strdup(aux + 1);
+	return (1);
 }

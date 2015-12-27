@@ -14,12 +14,7 @@
 # define GET_NEXT_LINE_H
 # define BUFF_SIZE 32
 
-typedef struct	s_save
-{
-	int			current_line;
-	int			total_lines;
-	char		**split_lines;
-}				t_save;
+#include "libft/libft.h"
 
 int		get_next_line(int const fd, char **line);
 
